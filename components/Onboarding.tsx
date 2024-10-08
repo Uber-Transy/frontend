@@ -1,10 +1,11 @@
 import React, {useState, useRef} from 'react'
-import {View, Text, StyleSheet, FlatList, Animated} from 'react-native'
+import {View, Text, StyleSheet, FlatList, Animated, TouchableOpacity} from 'react-native'
 import {useRouter} from "expo-router";
 import slides from '@/assets/data/slides'
 import OnboardingItem from "@/components/onboardingItem";
 import Paginator from "@/components/Paginator";
 import NextButton from "@/components/NextButton";
+import Colors from '@/constants/Colors'
 
 const Onboarding = () => {
     const scrollX = useRef(new Animated.Value(0)).current
@@ -22,12 +23,15 @@ const Onboarding = () => {
             slidesRef.current.scrollToIndex({ index: currentIndex + 1 })
             setCurrentIndex(currentIndex + 1)
         }else{
-            router.replace('/Signup')
+            router.replace('/Authentication')
         }
     }
 
     return(
         <View style={styles.container}>
+                <TouchableOpacity onPress={()=> router.replace('/Authentication')} style={styles.skip}>
+                    <Text style={styles.skipText}>Skip</Text>
+                </TouchableOpacity>
             <View style={{flex:3}}>
                 <FlatList
                     data={slides}
@@ -59,7 +63,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
+    },
+    skip:{
+        alignSelf:'flex-end',
+        padding: 20
+    },
+    skipText: {
+        fontSize: 20,
+        fontWeight: '400',
+        color: Colors.gray,
     }
 })
 
