@@ -1,4 +1,4 @@
-import React from 'react'
+import React  from "react";
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import Colors from '@/constants/Colors'
 import {useRouter} from "expo-router";
@@ -16,9 +16,11 @@ const Page = () => {
                 <Ionicons name="chevron-back" size={28} color={Colors.gray} />
                 <Text style={defaultStyles.backText}>Back</Text>
             </TouchableOpacity>
-           <Text style={[defaultStyles.h1,{marginTop: 40}]}>Email verification</Text>
+            <Text style={[defaultStyles.h1,{marginTop: 40}]}>Email verification</Text>
             <Text style={styles.legal}>Enter the OTP code sent to your email</Text>
-           <CodeFields/>
+
+            <CodeFields/>
+
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>
                     Didn't receive code?
@@ -27,7 +29,7 @@ const Page = () => {
                 </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=> router.push('/Signup/SetPassword')} style={styles.verify}>
+            <TouchableOpacity onPress={()=> router.push('/Forgot-Password/Set')} style={styles.verify}>
                 <Text style={styles.verifyText}>Verify</Text>
             </TouchableOpacity>
         </View>

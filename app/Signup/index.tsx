@@ -116,13 +116,13 @@ const Page = () => {
                                         source={require('@/assets/images/_check-circle.png')}
                                     />
                                     <Text numberOfLines={2}>
-                                        By signing in you agree to the {" "}
+                                        By signing up you automatically agree to the {" "}
                                         <TouchableOpacity style={{alignItems: 'center'}}>
-                                            <Text style={{ color: Colors.primary }}>Terms of service</Text>
+                                            <Text style={{ color: Colors.primary, fontWeight: 'bold' , fontSize: 18}}>Terms of service</Text>
                                         </TouchableOpacity>
                                         {" "} and {" "}
                                         <TouchableOpacity>
-                                            <Text style={{ color: Colors.primary }}> Privacy policy</Text>
+                                            <Text style={{ color: Colors.primary, fontWeight:'bold', fontSize: 18 }}> Privacy policy</Text>
                                         </TouchableOpacity>
                                     </Text>
                                 </View>

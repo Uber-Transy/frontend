@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useRouter} from "expo-router";
-import {View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, Image} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Ionicons} from "@expo/vector-icons";
 import Colors from '@/constants/Colors'
@@ -14,7 +14,7 @@ const Page = () =>{
     return(
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
-                <KeyboardAvoidingView behavior={"padding"} >
+                <KeyboardAvoidingView >
                 <TouchableOpacity onPress={()=>router.back()} style={styles.back}>
                     <Ionicons name="chevron-back" size={28} color={Colors.gray}/>
                     <Text style={{fontSize: 18, fontWeight:'100', marginLeft: 5}}>Back</Text>
@@ -75,11 +75,16 @@ const Page = () =>{
                         <View style={{width: "100%", alignItems: 'center'}}>
                             {/*sign in with your gmail/ google account*/}
                             <TouchableOpacity style={styles.link}>
+                                <Image
+                                    source={require('@/assets/images/Gmail.png')}
+                                />
                                 <Text>Sign in with Gmail</Text>
                             </TouchableOpacity>
-
-                            {/*sign in with your facebook account*/}
+                            {/* Sign in with your Facebook account */}
                             <TouchableOpacity style={styles.link}>
+                                <Image
+                                    source={require('@/assets/images/Facebook.png')}
+                                />
                                 <Text>Sign in with Facebook</Text>
                             </TouchableOpacity>
                         </View>
@@ -146,11 +151,14 @@ const styles = StyleSheet.create({
     link: {
         padding: 15,
         width: '90%',
+        flexDirection: "row",
         borderRadius: 10,
-        alignItems:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         marginTop: 25,
         borderColor: Colors.gray,
-        borderWidth: 1
+        borderWidth: 1,
+        gap: 10
     }
 })
 
