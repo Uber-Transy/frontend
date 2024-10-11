@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet, StatusBar, Image, useWindowDimensions, TouchableOpacity} from 'react-native'
 import {useRouter} from "expo-router";
+// @ts-ignore
 import img from '@/assets/images/Welcome Screen.png'
 import Colors from '@/constants/Colors'
 
