@@ -1,63 +1,74 @@
-import React , {useEffect, useState} from "react";
-import {View, Text, StyleSheet, TouchableOpacity, Alert, ImageBackground, Image} from "react-native";
-import * as Location from 'expo-location'
-import {defaultStyles} from "@/constants/Styles";
-import Colors from '@/constants/Colors'
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ImageBackground, Image } from "react-native";
+import * as Location from 'expo-location';
+import { defaultStyles } from "@/constants/Styles";
+import Colors from '@/constants/Colors';
+import { useRouter } from "expo-router";
 
-const Page = () =>{
-    const [locationPermission, setLocationPermission] = useState(false)
+const Page = () => {
+    const [locationPermission, setLocationPermission] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         (async () => {
-            const {status} = await Location.getForegroundPermissionsAsync()
-            setLocationPermission(status === 'granted')
-        })()
+            const { status } = await Location.getForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                const { status: newStatus } = await Location.requestForegroundPermissionsAsync();
+                setLocationPermission(newStatus === 'granted');
+            } else {
+                setLocationPermission(true);
+            }
+        })();
     }, []);
 
     const requestLocationPermission = async () => {
-        const {status} = await Location.getForegroundPermissionsAsync()
+        const { status } = await Location.requestForegroundPermissionsAsync();
         if (status === 'granted') {
             Alert.alert("Location access granted", "You can now access your location.");
             setLocationPermission(true);
+            try {
+                router.push('/Signup/Reroute');
+            } catch (error) {
+                console.error("Routing error:", error);
+            }
         } else {
             Alert.alert("Location access denied", "You can enable location access in settings.");
         }
-
-    }
+    };
 
     const skipForLater = () => {
         Alert.alert("Location access skipped", "You can enable location access later in settings.");
+        router.push('/Signup/Reroute');
     };
 
     return (
+        <ImageBackground
+            style={styles.container}
+            source={require('@/assets/images/Map.png')}
+        >
+            <View style={styles.overlay} />
 
-            <ImageBackground
-                style={styles.container}
-                source={require('@/assets/images/Map.png')}
-            >
-                <View style={styles.overlay} />
-
-                <View style={defaultStyles.block}>
-                    <Image
-                        source={require('@/assets/images/Location.png')}
-                    />
-            <Text style={defaultStyles.h1}>Location Access</Text>
-            <Text style={defaultStyles.p}>
-                This app requires access to your location. Would you like to allow access now?
-            </Text>
-            <View style={{width: '100%'}}>
-                <TouchableOpacity style={defaultStyles.button} onPress={requestLocationPermission}>
-                    <Text style={defaultStyles.buttonText}>Allow Access</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[defaultStyles.button, {backgroundColor: Colors.lightGray}]} onPress={skipForLater}>
-                    <Text style={[defaultStyles.buttonText, {color: Colors.gray}]}>Skip for Later</Text>
-                </TouchableOpacity>
-            </View>
+            <View style={defaultStyles.block}>
+                <Image source={require('@/assets/images/Location.png')} />
+                <Text style={defaultStyles.h1}>Location Access</Text>
+                <Text style={defaultStyles.p}>
+                    This app requires access to your location. Would you like to allow access now?
+                </Text>
+                <View style={{ width: '100%' }}>
+                    <TouchableOpacity style={defaultStyles.button} onPress={requestLocationPermission}>
+                        <Text style={defaultStyles.buttonText}>Allow Access</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[defaultStyles.button, { backgroundColor: Colors.lightGray }]}
+                        onPress={skipForLater}
+                    >
+                        <Text style={[defaultStyles.buttonText, { color: Colors.gray }]}>Skip for Later</Text>
+                    </TouchableOpacity>
                 </View>
-            </ImageBackground>
+            </View>
+        </ImageBackground>
     );
-
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -76,6 +87,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         zIndex: 0,
     },
-})
+});
 
-export default Page
+export default Page;

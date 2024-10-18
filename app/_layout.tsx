@@ -4,7 +4,11 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import {Provider} from 'react-redux'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {Store} from "@/Store";
+import 'react-native-get-random-values';
+
 
 
 export {
@@ -46,12 +50,16 @@ export default function RootLayout() {
 function RootLayoutNav() {
 
   return (
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="Authentication" options={{headerShown: false}}/>
-        <Stack.Screen name="Signup" options={{headerShown: false}} />
-        <Stack.Screen name="Login" options={{headerShown: false}} />
-          <Stack.Screen name="Forgot-Password" options={{headerShown: false}}/>
-      </Stack>
+      <Provider store={Store}>
+          <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="Authentication" options={{headerShown: false}}/>
+              <Stack.Screen name="Signup" options={{headerShown: false}} />
+              <Stack.Screen name="Login" options={{headerShown: false}} />
+              <Stack.Screen name="Forgot-Password" options={{headerShown: false}}/>
+              <Stack.Screen name="Driver" options={{headerShown: false}}/>
+              <Stack.Screen name="Customer" options={{headerShown: false}}/>
+          </Stack>
+      </Provider>
   );
 }

@@ -11,5 +11,5 @@ export default {
   red: '#EF0827',
   brown:  "#6e5b61",
   alternative: '#131ae0',
-  schedule: '#e611b792'
+  schedule: '#77efbb'
 } 

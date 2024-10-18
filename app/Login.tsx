@@ -61,7 +61,7 @@ const Page = () =>{
                         </TouchableOpacity>
 
                     {/*    sign in button*/}
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity onPress={()=>router.push('/Customer/')} style={styles.button}>
                             <Text style={{fontSize: 18,fontWeight:'800', color: Colors.white}}>Sign In</Text>
                         </TouchableOpacity>
 
